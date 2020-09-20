@@ -1,6 +1,36 @@
 const VueTouchScroll = {
    install(Vue) {
-      var ELEMENT = []
+      let ELEMENT = []
+
+      function ownKeys(object, enumerableOnly) {
+         let keys = Object.keys(object);
+         if (Object.getOwnPropertySymbols) {
+            let symbols = Object.getOwnPropertySymbols(object);
+            if (enumerableOnly) symbols = symbols.filter(function(sym) {
+               return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+            });
+            keys.push.apply(keys, symbols);
+         }
+         return keys;
+      }
+
+      function _objectSpread(target) {
+         for (let i = 1; i < arguments.length; i++) {
+            let source = arguments[i] != null ? arguments[i] : {};
+            if (i % 2) {
+               ownKeys(Object(source), true).forEach(function(key) {
+                  _defineProperty(target, key, source[key]);
+               });
+            } else if (Object.getOwnPropertyDescriptors) {
+               Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+            } else {
+               ownKeys(Object(source)).forEach(function(key) {
+                  Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+               });
+            }
+         }
+         return target;
+      }
 
       function addElement(element, type, scrollbar = { render: true }) {
          if (scrollbar == null || typeof scrollbar != "object") {
@@ -14,45 +44,45 @@ const VueTouchScroll = {
       }
 
       function E() {
-         var a = document.createElement("style");
+         let a = document.createElement("style");
          document.head.appendChild(a), C = document.styleSheets[document.styleSheets.length - 1]
       }
 
       function F(a) {
          function f(a) {
             a.preventDefault(), y = !0, e && (clearTimeout(e), e = 0), c && (M(c), c = null);
-            var b = g ? a.touches[0] : a;
+            let b = g ? a.touches[0] : a;
             w = b.clientX, x = b.clientY;
             if (A.length > 1)
-               for (var d = 0; d < A.length; ++d) {
-                  var f = A[d];
+               for (let d = 0; d < A.length; ++d) {
+                  let f = A[d];
                   if (f.disable && f.disable(w, x, u, v)) {
                      f.terminate(), A.splice(d--, 1);
                      if (A.length == 1) {
-                        var h = A[0];
+                        let h = A[0];
                      }
                   }
                }
             A.forEach(function(b) {
-               var c = b.filter(w, x);
+               let c = b.filter(w, x);
                b.track(c, a.timeStamp)
             })
          }
 
          function h(a) {
             if (c) {
-               var b = document.createEvent("MouseEvents");
+               let b = document.createEvent("MouseEvents");
                b.initMouseEvent("click", !0, !0, window, 1), c[0].dispatchEvent(b), M(c)
             }
             document.removeEventListener(g ? "touchmove" : "mousemove", f, !1), document.removeEventListener(g ? "touchend" : "mouseup", h, !1), A.forEach(function(a) {
                a.takeoff()
             })
          }
-         var b = g ? a.touches[0] : a,
+         let b = g ? a.touches[0] : a,
             c = null;
          w = u = b.clientX, x = v = b.clientY, y = !1, A = H({ element: a.target, type: "Y" }, w, x, a.timeStamp, a);
          if (!A.length) return !0;
-         var d = a.target,
+         let d = a.target,
             e = setTimeout(function() {
                e = 0, c = L(d)
             }, 50);
@@ -80,10 +110,10 @@ const VueTouchScroll = {
             L = b - J, J = b, E = a - I, I = a, Math.abs(E) < i ? ++M : (M && --M, M = 0);
             if (f)
                if (v > x && A == x) {
-                  var c = v - x;
+                  let c = v - x;
                   E *= (1 - c / G) * k
                } else if (v < w && z == w) {
-               var c = w - v;
+               let c = w - v;
                E *= (1 - c / G) * k
             }
             return v += E, bc(v), e.style.webkitAnimationName = "", N.forEach(function(a) {
@@ -92,14 +122,14 @@ const VueTouchScroll = {
          }
 
          function _(a) {
-            var b = -w - x;
+            let b = -w - x;
             if (u && j < b) {
-               var c = j - q * 2,
+               let c = j - q * 2,
                   d = c / b * c,
                   e;
                if (a > x) d = Math.max(d - (a - x), r), e = 0;
                else if (a < w) {
-                  var f = d - (w - a);
+                  let f = d - (w - a);
                   d = Math.max(d - (w - a), r), e = c - d
                } else e = Math.abs(a) / b * (c - d);
                return e += q, "translate3d(0, " + Math.round(e) + "px,  0) " + "scaleY(" + Math.round(d) + ")"
@@ -108,14 +138,14 @@ const VueTouchScroll = {
 
          function ba() {
             M && (E = 0), v += E, bc(v), E = E / L * s;
-            var b = bb();
+            let b = bb();
             if (!b.time) {
                bf();
                return
             }
             e.cleanup && e.cleanup(), C.insertRule(b.css, 0), N.forEach(function(c, d) {
                c.name = "scrollability-track" + B++;
-               var e = K(a, c.keyframes, c.name, b.time);
+               let e = K(a, c.keyframes, c.name, b.time);
                C.insertRule(e, 0)
             }), e.earlyEnd = function() {
                be(!0)
@@ -132,7 +162,7 @@ const VueTouchScroll = {
 
          function bb() {
             function Q(a) {
-               var f = v - c;
+               let f = v - c;
                if (a || b - d >= t || e < 0 != f < 0) o.push({
                   position: v,
                   time: b
@@ -143,7 +173,7 @@ const VueTouchScroll = {
                   })
                }), e = f, c = v, d = b
             }
-            var b = 0,
+            let b = 0,
                c = v,
                d = 0,
                e = 0,
@@ -154,26 +184,26 @@ const VueTouchScroll = {
                   if (v > x) {
                      if (x != A) {
                         x += j + D, w += j + D;
-                        var q = w % j,
+                        let q = w % j,
                            r = -Math.round((v + j - q) / (j + D));
                      }
                   } else if (w != z) {
                x -= j + D, w -= j + D;
-               var q = w % j,
+               let q = w % j,
                   r = -Math.round((v - j - q) / (j + D));
 
             }
-            var u = !0;
+            let u = !0;
             while (u) {
                if (v > x && f)
                   if (E > 0) {
-                     var y = v - x,
+                     let y = v - x,
                         C = 1 - y / G;
                      E = Math.max(E - l, 0) * C, v += E
                   } else m || (i = v, k = x - v), v = O(m, i, k, F), u = ++m <= F && Math.floor(Math.abs(v)) > x;
                else if (v < w && f)
                   if (E < 0) {
-                     var y = w - v,
+                     let y = w - v,
                         C = 1 - y / G;
                      E = Math.min(E + l, 0) * C, v += E
                   } else m || (i = v, k = w - v), v = O(m, i, k, F), u = ++m <= F && Math.ceil(v) < w;
@@ -185,10 +215,10 @@ const VueTouchScroll = {
                Q(!u), b += s
             }
             if (g) {
-               var I = Math.round(v / (j + D));
+               let I = Math.round(v / (j + D));
                v = I * (j + D), Q(!0)
             } else v > x && f ? (v = x, Q(!0)) : v < w && f && (v = w, Q(!0));
-            var J = o.length ? o[o.length - 1].time : 0,
+            let J = o.length ? o[o.length - 1].time : 0,
                L = "scrollability" + B++,
                M = K(a, o, L, J, P);
             return {
@@ -217,7 +247,7 @@ const VueTouchScroll = {
          function bf() {
             be()
          }
-         var e = a.node,
+         let e = a.node,
             f = a.constrained,
             g = a.paginated,
             j = a.viewport || 0,
@@ -240,7 +270,7 @@ const VueTouchScroll = {
             N = [],
             P = e.scrollableOffset || 0;
          if (!a.mute) {
-            var Q = {
+            let Q = {
                position: v,
                track: X,
                setSpacing: Y,
@@ -249,11 +279,11 @@ const VueTouchScroll = {
          }
          if (g) {
             if (D === undefined) {
-               var U = Math.round(Math.abs(z) % j),
+               let U = Math.round(Math.abs(z) % j),
                   V = (Math.abs(z) - U) / j + 1;
                D = U / V
             }
-            var W = Math.round(v / (j + D));
+            let W = Math.round(v / (j + D));
             w = x = W * (j + D), z += D
          }
 
@@ -280,15 +310,15 @@ const VueTouchScroll = {
          }
 
          u.className = u.className.replace(/\s{2,}/g, " ").split(" ").filter((value, index, array) => array.indexOf(value, index + 1) == -1).join(" ")
-         
+
          return u && (X(u, _), (scrollbar.render ? u.parentNode || e.parentNode.appendChild(u) : u.parentNode && e.parentNode.removeChild(u))), e.earlyEnd && (R(e), N.forEach(function(a) {
             R(a.node)
          }), e.earlyEnd(), bc(v)), a.reposition = bc, a.track = $, a.takeoff = ba, a.terminate = bf, a
       }
 
       function H(a, b, c, d, f) {
-         var e = []
-         for (var g = 0; g < ELEMENT.length; ++g) {
+         let e = []
+         for (let g = 0; g < ELEMENT.length; ++g) {
             if ([f.target, f.currentTarget, f.srcElement].some(e => ELEMENT[g].element.contains(e)))
                I(ELEMENT[g], e, b, c, d);
          }
@@ -298,10 +328,10 @@ const VueTouchScroll = {
       function I({ element, type, scrollbar }, b, c, d, e) {
          while (element) {
             if (element.nodeType == 1) {
-               var f = J({ element, type }, c, d, e);
+               let f = J({ element, type }, c, d, e);
                if (f) {
-                  var g = !1;
-                  for (var h = 0; h < b.length; ++h)
+                  let g = !1;
+                  for (let h = 0; h < b.length; ++h)
                      if (b[h].node == element) {
                         g = !0;
                         break
@@ -317,39 +347,39 @@ const VueTouchScroll = {
 
          if (ELEMENT.some(item => item.element === element)) {
 
-            var g = e[f];
+            let g = e[f];
             if (D[type]) {
-               var h = D[type](element);
+               let h = D[type](element);
                return h.direction = type, h.paginated = element.className.indexOf("paginated") != -1, h
             }
          }
       }
 
       function K(a, b, c, d, e) {
-         var f = ["@-webkit-keyframes " + c + " {"];
+         let f = ["@-webkit-keyframes " + c + " {"];
          return b.forEach(function(b) {
-            var c = b.time / d * 100,
+            let c = b.time / d * 100,
                g = Math.floor(c) + "% {" + "-webkit-transform: " + (b.css || a.update(b.position + e)) + ";" + "}";
             f.push(g)
          }), f.push("}"), f.join("\n")
       }
 
       function L(a) {
-         var b = [];
-         for (var c = a; c; c = c.parentNode) c.nodeType == 1 && (c.className = (c.className ? c.className + " " : "") + "touched", b.push(c));
+         let b = [];
+         for (let c = a; c; c = c.parentNode) c.nodeType == 1 && (c.className = (c.className ? c.className + " " : "") + "touched", b.push(c));
          return b
       }
 
       function M(a) {
-         for (var b = 0; b < a.length; ++b) {
-            var c = a[b];
+         for (let b = 0; b < a.length; ++b) {
+            let c = a[b];
             c.className = c.className.replace("touched", "")
          }
       }
 
       function N(a) {
          if (!a.scrollableScrollbar) {
-            var b = a.scrollableScrollbar = document.createElement("div");
+            let b = a.scrollableScrollbar = document.createElement("div");
             b.style = "position: absolute;top: 0;right: 2px;width: 7px;height: 1px;z-index: 999999;opacity: 0;transform: translate3d(0, 0, 0);box-sizing: border-box;transform-origin: top left;background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAABCAYAAADuHp8EAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAC5JREFUeNpi/P//vyQDAwMjKytr2Z8/f9gYIICRAQH+Q/n/WVhYfgNBJ4gNEGAAhVUOGMTI0TwAAAAASUVORK5CYII=) no-repeat"
          }
          return a.scrollableScrollbar
@@ -360,10 +390,10 @@ const VueTouchScroll = {
       }
 
       function P(a) {
-         var b = a.parentNode,
+         let b = a.parentNode,
             c = a.querySelector("* > .clipper") || a;
          a.style.webkitAnimation && (a.style.webkitAnimationPlayState = "paused");
-         var d = getComputedStyle(a).webkitTransform,
+         let d = getComputedStyle(a).webkitTransform,
             e = (new WebKitCSSMatrix(d)).m41 - (a.scrollableOffset || 0);
          return {
             node: a,
@@ -377,7 +407,7 @@ const VueTouchScroll = {
                return a
             },
             disable: function(a, b, c, d) {
-               var e = Math.abs(a - c),
+               let e = Math.abs(a - c),
                   f = Math.abs(b - d);
                if (f > e && f > j) return !0
             },
@@ -388,10 +418,10 @@ const VueTouchScroll = {
       }
 
       function Q(a) {
-         var b = a.parentNode,
+         let b = a.parentNode,
             c = a.querySelector("* > .clipper") || a;
          a.style.webkitAnimation && (a.style.webkitAnimationPlayState = "paused");
-         var d = getComputedStyle(a).webkitTransform,
+         let d = getComputedStyle(a).webkitTransform,
             e = (new WebKitCSSMatrix(d)).m42;
          return {
             node: a,
@@ -406,7 +436,7 @@ const VueTouchScroll = {
                return b
             },
             disable: function(a, b, c, d) {
-               var e = Math.abs(a - c),
+               let e = Math.abs(a - c),
                   f = Math.abs(b - d);
                if (e > f && e > j) return !0
             },
@@ -424,7 +454,7 @@ const VueTouchScroll = {
          a.style.webkitTransition = "", a.style.opacity = "1"
       }
 
-      var e = "webkitTransform" in document.documentElement.style,
+      let e = "webkitTransform" in document.documentElement.style,
          f = e && /OS 5_/.exec(navigator.userAgent),
          g = "ontouchstart" in window,
          h = .9925,
@@ -475,7 +505,7 @@ const VueTouchScroll = {
    },
    VueTouchScroll: {
       props: {
-         scrollbar: [Object],
+         scrollbar: Object,
          hideScrollbar: Boolean,
          classScrollbar: [String, Object, Array],
          tag: {
@@ -496,7 +526,12 @@ const VueTouchScroll = {
                {
                   name: "touch-scroll",
                   arg: this.type,
-                  value: { scrollbar: { ...this.scrollbar, render: !this.hideScrollbar, class: this.classScrollbar } }
+                  value: {
+                     scrollbar: _objectSpread(this.scrollbar, {
+                        render: !this.hideScrollbar,
+                        class: this.classScrollbar
+                     })
+                  }
                }
             ]
          }, [this.$slots.default])
