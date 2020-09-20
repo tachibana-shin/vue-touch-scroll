@@ -19,7 +19,7 @@ const VueTouchScroll = {
             let source = arguments[i] != null ? arguments[i] : {};
             if (i % 2) {
                ownKeys(Object(source), true).forEach(function(key) {
-                  _defineProperty(target, key, source[key]);
+                  target[ key ] = source[key]
                });
             } else if (Object.getOwnPropertyDescriptors) {
                Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
@@ -33,6 +33,9 @@ const VueTouchScroll = {
       }
 
       function addElement(element, type, scrollbar = { render: true }) {
+         
+         scrollbar =  _objectSpread({ render: true }, scrollbar)
+         
          if (scrollbar == null || typeof scrollbar != "object") {
             scrollbar = new Object(null)
          }
@@ -313,7 +316,8 @@ const VueTouchScroll = {
 
             u.className = u.className.replace(/\s{2,}/g, " ").split(" ").filter((value, index, array) => array.indexOf(value, index + 1) == -1).join(" ")
          }
-         return u && (X(u, _), (scrollbar.render ? u.parentNode || e.parentNode.appendChild(u) : u.parentNode && e.parentNode.removeChild(u))), e.earlyEnd && (R(e), N.forEach(function(a) {
+         
+         return u && (X(u, _), (scrollbar.render ? (u.parentNode || e.parentNode.appendChild(u)) : u.parentNode && e.parentNode.removeChild(u))), e.earlyEnd && (R(e), N.forEach(function(a) {
             R(a.node)
          }), e.earlyEnd(), bc(v)), a.reposition = bc, a.track = $, a.takeoff = ba, a.terminate = bf, a
       }
@@ -493,6 +497,7 @@ const VueTouchScroll = {
 
       Vue.directive("touch-scroll", {
          bind(element, { arg, value }) {
+            
             addElement(element, arg, typeof value == "object" && value ? value.scrollbar : null)
          },
          update(element, { arg, value }) {
