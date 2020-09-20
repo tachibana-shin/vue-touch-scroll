@@ -295,22 +295,24 @@ const VueTouchScroll = {
             }
          }
 
-         if (typeof scrollbar.class == "object") {
-            if (Array.isArray(scrollbar.class)) {
-               u.className += scrollbar.class.join(" ")
-            } else {
-               for (let [thisClass, state] of scrollbar.class) {
-                  if (state) {
-                     u.className += " " + thisClass
+         if ( u && u.nodeType) {
+
+            if (typeof scrollbar.class == "object") {
+               if (Array.isArray(scrollbar.class)) {
+                  u.className += scrollbar.class.join(" ")
+               } else {
+                  for (let [thisClass, state] of scrollbar.class) {
+                     if (state) {
+                        u.className += " " + thisClass
+                     }
                   }
                }
+            } else {
+               u.className += scrollbar.class
             }
-         } else {
-            u.className += scrollbar.class
+
+            u.className = u.className.replace(/\s{2,}/g, " ").split(" ").filter((value, index, array) => array.indexOf(value, index + 1) == -1).join(" ")
          }
-
-         u.className = u.className.replace(/\s{2,}/g, " ").split(" ").filter((value, index, array) => array.indexOf(value, index + 1) == -1).join(" ")
-
          return u && (X(u, _), (scrollbar.render ? u.parentNode || e.parentNode.appendChild(u) : u.parentNode && e.parentNode.removeChild(u))), e.earlyEnd && (R(e), N.forEach(function(a) {
             R(a.node)
          }), e.earlyEnd(), bc(v)), a.reposition = bc, a.track = $, a.takeoff = ba, a.terminate = bf, a
