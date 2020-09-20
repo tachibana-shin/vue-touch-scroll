@@ -1,4 +1,5 @@
 # vue-touch-scroll
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/nguyenthanh1995/vue-i18n-filters/blob/master/LICENSE)  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#)
 
 **A plugin scroll cross browser for Vue.js**
 
@@ -17,7 +18,7 @@ npm install vue-touch-scroll
 or if you prefer CDN
 
 ``` html
-<script type="text/javascript" src=""></script>
+<script type="text/javascript" src="https://unpkg.com/vue-touch-scroll@0.0.2/dist/vue-touch-scroll.js"></script>
 ```
 
 ## Usage
