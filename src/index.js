@@ -286,16 +286,16 @@ const VueTouchScroll = {
             let W = Math.round(v / (j + D));
             w = x = W * (j + D), z += D
          }
+         if (u && u.nodeType) {
 
-         if (typeof scrollbar.style == "string") {
-            u.style = scrollbar.style
-         } else {
-            for (let key in scrollbar.style) {
-               u.style[key] = scrollbar.style[key]
+            if (typeof scrollbar.style == "string") {
+               u.style = scrollbar.style
+            } else {
+               for (let key in scrollbar.style) {
+                  u.style[key] = scrollbar.style[key]
+               }
             }
-         }
 
-         if ( u && u.nodeType) {
 
             if (typeof scrollbar.class == "object") {
                if (Array.isArray(scrollbar.class)) {
