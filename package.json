@@ -1,6 +1,6 @@
 {
    "name": "vue-touch-scroll",
-   "version": "0.0.2",
+   "version": "0.0.2-alpha1",
    "description": "A plugin scroll cross browser for Vue.js. Support for Chrome, Firefox, Safari, Opera, EDGE.",
    "main": "src/index.js",
    "author": "Nguyen Thanh",
@@ -23,6 +23,7 @@
    },
    "devDependencies": {
       "@babel/core": "^7.0.0-rc.1",
+      "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
       "@babel/preset-env": "^7.0.0-rc.1",
       "@babel/register": "^7.0.0-rc.1",
       "babel": "^6.23.0",
@@ -44,7 +45,8 @@
          ]
       ],
       "plugins": [
-         "transform-es2015-modules-commonjs"
+         "transform-es2015-modules-commonjs",
+         "@babel/plugin-proposal-object-rest-spread"
       ]
    }
 }
