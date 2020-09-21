@@ -1,36 +1,10 @@
+function ownKeys(object, enumerableOnly) {              let keys = Object.keys(object);                      if (Object.getOwnPropertySymbols) {                     let symbols = Object.getOwnPropertySymbols(object);                                                       if (enumerableOnly) symbols = symbols.filter(function(sym) {                                                 return Object.getOwnPropertyDescriptor(object, sym).enumerable;                                        });                                                  keys.push.apply(keys, symbols);                   }                                                    return keys;                                      }                                                                                                         function _objectSpread(target) {                        for (let i = 1; i < arguments.length; i++) {            let source = arguments[i] != null ? arguments[i] : {};                                                    if (i % 2) {                                            ownKeys(Object(source), true).forEach(function(key) {                                                        target[ key ] = source[key]                       });                                               } else if (Object.getOwnPropertyDescriptors) {                                                               Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));                             } else {                                                ownKeys(Object(source)).forEach(function(key) {                                                              Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));                      });                                               }                                                 }
+   return target
+}
+
 const VueTouchScroll = {
    install(Vue) {
       let ELEMENT = []
-
-      function ownKeys(object, enumerableOnly) {
-         let keys = Object.keys(object);
-         if (Object.getOwnPropertySymbols) {
-            let symbols = Object.getOwnPropertySymbols(object);
-            if (enumerableOnly) symbols = symbols.filter(function(sym) {
-               return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-            });
-            keys.push.apply(keys, symbols);
-         }
-         return keys;
-      }
-
-      function _objectSpread(target) {
-         for (let i = 1; i < arguments.length; i++) {
-            let source = arguments[i] != null ? arguments[i] : {};
-            if (i % 2) {
-               ownKeys(Object(source), true).forEach(function(key) {
-                  target[ key ] = source[key]
-               });
-            } else if (Object.getOwnPropertyDescriptors) {
-               Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-            } else {
-               ownKeys(Object(source)).forEach(function(key) {
-                  Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-               });
-            }
-         }
-         return target;
-      }
 
       function addElement(element, type, scrollbar = { render: true }) {
          
@@ -534,7 +508,7 @@ const VueTouchScroll = {
                   name: "touch-scroll",
                   arg: this.type,
                   value: {
-                     scrollbar: _objectSpread(this.scrollbar, {
+                     scrollbar: _objectSpread({}, this.scrollbar, {
                         render: !this.hideScrollbar,
                         class: this.classScrollbar
                      })
