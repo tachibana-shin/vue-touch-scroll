@@ -1,7 +1,7 @@
 <template>
    <div id="app">
       <div>
-         <ul v-touch-scroll:vertical="{ scrollbar: { style: { background: 'red' } }}" >
+         <ul v-touch-scroll:vertical="{ style: { background: 'red' } }" >
             <li v-for="i in 100"> {{ i }} </li>
          </ul>
       </div>

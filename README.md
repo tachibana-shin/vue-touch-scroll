@@ -18,10 +18,12 @@ npm install vue-touch-scroll
 or if you prefer CDN
 
 ``` html
-<script type="text/javascript" src="https://unpkg.com/vue-touch-scroll@0.0.2/dist/vue-touch-scroll.js"></script>
+<script type="text/javascript" src="https://unpkg.com/vue-touch-scroll@latest/dist/vue-touch-scroll.js"></script>
 ```
 
 ## Usage
+
+### Global
 
 ``` JavaScript
 import { use } from "vue"
@@ -45,6 +47,39 @@ or
 </div>
 ```
 
+### Private
+
+``` vue.js
+<vue-touch-scroll type="vertical">
+   <!-- Content -->
+</vue-touch-scroll>
+
+<script>
+   import { VueTouchScroll } from "vue-touch-scroll"
+   
+   export default {
+      components: { VueTouchScroll }
+   }
+</script>
+```
+
+or
+
+``` vue.js
+<div v-touch-scroll:vertical>
+   <!-- Content -+>
+</div>
+
+<script>
+   import { directive } from "vue-touch-scroll"
+   
+   export default {
+      directives: {
+         "touch-scroll": directive
+      }
+   }
+</script> 
+```
 
 
 ### Configuration
@@ -57,7 +92,7 @@ or
 | type | String | "vertical" | Direction scroll "vertical" or "horizontal" |
 | hide-scrollbar | Boolean | false | Are you hide scrollbar? |
 | class-scrollbar | String, Array, Object | "" | Class for scrollbar |
-| scrollbar | Object | {} | A more options for scrollbar |
+| style-scrollbar | Object | {} | Style for scrollbar |
 
 #### Directive
 
@@ -74,10 +109,9 @@ or
 
 ``` vue.js
 <div v-touch-scroll:vertical="{
-   scrollbar: {
-      render: true, // render scrollbar?
-      class: [] // class for scrollbar
-   }
+   render: true, // render scrollbar?
+   class: [] // class for scrollbar,
+   style: {}
 }"></div> 
 ```
 
