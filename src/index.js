@@ -507,7 +507,7 @@ const VueTouchScroll = {
       props: {
          hideScrollbar: Boolean,
          classScrollbar: [String, Object, Array],
-         styleScrollbar: Object
+         styleScrollbar: Object,
          tag: {
             type: String,
             default: "div"
